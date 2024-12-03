@@ -13,7 +13,6 @@
   "dependencies": {
     "@huggingface/inference": "^2.8.1",
     "@pinecone-database/pinecone": "^4.0.0",
-    "@prisma/client": "^5.22.0",
     "axios": "^1.7.7",
     "backend": "file:",
     "bcryptjs": "^2.4.3",
@@ -26,6 +25,7 @@
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
+    "@prisma/client": "^6.0.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
