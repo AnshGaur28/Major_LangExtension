@@ -1,10 +1,32 @@
-import  { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { useState  } from 'react';
 
 function App() {
+  const { register: loginRegister, handleSubmit: handleLoginSubmit } = useForm();
+  const { register: registerRegister, handleSubmit: handleRegisterSubmit } = useForm();
   const [activeTab, setActiveTab] = useState('login');
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+  };
+
+  const onLoginSubmit = async (data) => {
+    try {
+      const response = await axios.post('/auth/login', data);
+      console.log('Login successful:', response.data);
+    } catch (error) {
+      console.error('Error logging in:', error.response ? error.response.data : error.message);
+    }
+  };
+
+  const onRegisterSubmit = async (data) => {
+    try {
+      const response = await axios.post('/auth/register', data);
+      console.log('Registration successful:', response.data);
+    } catch (error) {
+      console.error('Error registering:', error.response ? error.response.data : error.message);
+    }
   };
 
   return (
@@ -28,71 +50,63 @@ function App() {
       {/* Tab Content */}
       <div className="flex flex-col items-center">
         {activeTab === 'login' && (
-          <div className="w-full">
-            <p className="text-center mb-3 ">Sign in with:</p>
+          <form onSubmit={handleLoginSubmit(onLoginSubmit)} className="w-full">
+            <p className="text-center mb-3">Sign in with:</p>
+            {/* Social Media Buttons */}
             <div className="flex justify-between mb-5 w-1/2 mx-auto">
-              <button className="text-blue-600">
-                <i className="fab fa-facebook-f"></i>
-              </button>
-              <button className="text-blue-600">
-                <i className="fab fa-twitter"></i>
-              </button>
-              <button className="text-blue-600">
-                <i className="fab fa-google"></i>
-              </button>
-              <button className="text-blue-600">
-                <i className="fab fa-github"></i>
-              </button>
+              {/* Add your social media buttons here */}
             </div>
-
             <p className="text-center mb-3">or:</p>
-            <input type="email" placeholder="Email address" className="mb-4 p-3 w-full border border-gray-300 rounded" />
-            <input type="password" placeholder="Password" className="mb-4 p-3 w-full border border-gray-300 rounded" />
-
-            <div className="flex justify-between mb-4">
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-2" /> Remember me
-              </label>
-              <a href="#!" className="text-blue-500">Forgot password?</a>
-            </div>
-
+            <input
+              {...loginRegister('email', { required: 'Email is required' })}
+              type="email"
+              placeholder="Email address"
+              className="mb-4 p-3 w-full border border-gray-300 rounded"
+            />
+            <input
+              {...loginRegister('password', { required: 'Password is required' })}
+              type="password"
+              placeholder="Password"
+              className="mb-4 p-3 w-full border border-gray-300 rounded"
+            />
             <button className="w-full p-3 bg-blue-500 text-white rounded">Sign in</button>
-            <p className="text-center mt-3">Not a member? <a href="#!" className="text-blue-500">Register</a></p>
-          </div>
+          </form>
         )}
 
         {activeTab === 'register' && (
-          <div className="w-full">
+          <form onSubmit={handleRegisterSubmit(onRegisterSubmit)} className="w-full">
             <p className="text-center mb-3">Sign up with:</p>
+            {/* Social Media Buttons */}
             <div className="flex justify-between mb-5 w-1/2 mx-auto">
-              <button className="text-blue-600">
-                <i className="fab fa-facebook-f"></i>
-              </button>
-              <button className="text-blue-600">
-                <i className="fab fa-twitter"></i>
-              </button>
-              <button className="text-blue-600">
-                <i className="fab fa-google"></i>
-              </button>
-              <button className="text-blue-600">
-                <i className="fab fa-github"></i>
-              </button>
+              {/* Add your social media buttons here */}
             </div>
-
             <p className="text-center mb-3">or:</p>
-            <input type="text" placeholder="Name" className="mb-4 p-3 w-full border border-gray-300 rounded" />
-            <input type="text" placeholder="Mobile No." className="mb-4 p-3 w-full border border-gray-300 rounded" />
-            <input type="email" placeholder="Email" className="mb-4 p-3 w-full border border-gray-300 rounded" />
-            <input type="password" placeholder="Password" className="mb-4 p-3 w-full border border-gray-300 rounded" />
-
-            <div className="flex justify-center mb-4">
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-2" /> I have read and agree to the terms
-              </label>
-            </div>
-
+            <input
+              {...registerRegister('name', { required: 'Name is required' })}
+              type="text"
+              placeholder="Name"
+              className="mb-4 p-3 w-full border border-gray-300 rounded"
+            />
+            <input
+              {...registerRegister('mobile', { required: 'Mobile number is required' })}
+              type="text"
+              placeholder="Mobile No."
+              className="mb-4 p-3 w-full border border-gray-300 rounded"
+            />
+            <input
+              {...registerRegister('email', { required: 'Email is required' })}
+              type="email"
+              placeholder="Email"
+              className="mb-4 p-3 w-full border border-gray-300 rounded"
+            />
+            <input
+              {...registerRegister('password', { required: 'Password is required' })}
+              type="password"
+              placeholder="Password"
+              className="mb-4 p-3 w-full border border-gray-300 rounded"
+            />
             <button className="w-full p-3 bg-blue-500 text-white rounded">Sign up</button>
-          </div>
+          </form>
         )}
       </div>
     </div>
