@@ -9,6 +9,8 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';  // Use an envir
 export async function register(req: Request, res: Response): Promise<void> {
   const { email, password, name, mobile } = req.body;
 
+  console.log(req.body)
+
   // Validate input fields (you can use express-validator or Joi here for better validation)
   if (!email || !password || !name || !mobile) {
     res.status(400).json({ message: 'All fields are required' });
@@ -81,7 +83,7 @@ export async function login(req: Request, res: Response): Promise<void> {
     res.status(200).json({
       message: 'Login successful',
       token,
-      user: { id: user.id, email: user.email, name: user.name, mobile: user.mobile },
+      user: { id: user.id, email: user.email, name: user.name },
     });
   } catch (error) {
     console.error('Login failed: ', error);

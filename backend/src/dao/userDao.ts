@@ -21,7 +21,7 @@ export async function createUser(data: UserData) {
 // Find user by email
 export async function findUserByEmail(email: string) {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { email },
     });
     return user;
@@ -37,7 +37,7 @@ export async function findUserByEmail(email: string) {
 // Find user by ID (optional, in case you need this in the future)
 export async function findUserById(id: number) {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id },
     });
     return user;

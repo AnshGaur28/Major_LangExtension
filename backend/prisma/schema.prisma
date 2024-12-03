@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model users {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
@@ -18,15 +18,13 @@ model User {
 model WebModel {
   namespace String 
   URL String @unique @id
-  first-name String
-  last-name String
+  firstName String
+  lastName String
   mobile String
   city String
-  postal-code String
-  street-address String
+  postalCode String
+  streetAddress String
   country String
   region String
-  about String
-
-  
+  about String  
 }
